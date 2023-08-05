@@ -1,0 +1,17 @@
+from PIL import Image
+
+# Definir a matriz RGB
+matriz_rgb = [[255, 0, 0],   # Vermelho
+              [0, 255, 0],   # Verde
+              [0, 0, 255]]   # Azul
+
+# Criar uma nova imagem com base na matriz RGB
+imagem = Image.new("RGB", (len(matriz_rgb[0]), len(matriz_rgb)))
+
+# Preencher a imagem com os valores da matriz RGB
+for y, linha in enumerate(matriz_rgb):
+    for x, cor in enumerate(linha):
+        imagem.putpixel((x, y), tuple(cor))
+
+# Salvar a imagem como um arquivo PNG
+imagem.save("imagem.png")

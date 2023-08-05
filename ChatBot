@@ -1,0 +1,17 @@
+from chatterbot import ChatBot
+from chatterbot.trainers import ChatterBotCorpusTrainer
+
+# Criação do chatbot
+chatbot = ChatBot('Meu ChatBot')
+
+# Criação do treinador
+treinador = ChatterBotCorpusTrainer(chatbot)
+
+# Treinamento do chatbot
+treinador.train('chatterbot.corpus.portuguese')
+
+# Loop principal do chatbot
+while True:
+    pergunta = input("Usuário: ")
+    resposta = chatbot.get_response(pergunta)
+    print("ChatBot: ", resposta)

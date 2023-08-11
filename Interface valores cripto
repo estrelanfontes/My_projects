@@ -45,3 +45,15 @@ def main():
 
         # Obtém os novos valores
         novos_valores = obter_valores()
+# Atualiza os valores na interface
+        atualizar_valores(window, novos_valores)
+
+    window.close()
+
+if __name__ == '__main__':
+    main()
+```
+
+Certifique-se de ter a biblioteca PySimpleGUI instalada em seu ambiente Python antes de executar o código. Você pode instalá-la usando o comando `pip install PySimpleGUI`. O programa irá exibir os valores do Bitcoin, Ethereum e Matic em tempo real, bem como os últimos cinco valores de cada criptomoeda. A interface será atualizada a cada segundo. Para sair do programa, basta clicar no botão "Sair" ou fechar a janela.
+
+Espero que isso ajude! Se tiver mais alguma dúvida, é só me perguntar.

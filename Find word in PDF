@@ -1,0 +1,34 @@
+"""Faça um programa em python que leia um uma pasta arquivos pdf's diversos procurando uma palavra específica.
+No final mostre em que arquivos estão estas palavras e monte uma lista na tela num arquivo TXT. 
+Eu tenho que digitar a palavra e a pasta que quero procurar. Use a biblioteca PyPDF2"""
+
+import os
+import PyPDF2
+
+def procurar_palavra(palavra, pasta):
+    arquivos_encontrados = []
+    resultados = []
+
+    for arquivo in os.listdir(pasta):
+        if arquivo.endswith('.pdf'):
+            caminho_arquivo = os.path.join(pasta, arquivo)
+            with open(caminho_arquivo, 'rb') as arquivo_pdf:
+                leitor = PyPDF2.PdfReader(arquivo_pdf)
+                for pagina in leitor.pages:
+                    texto = pagina.extract_text()
+                    if palavra.lower() in texto.lower():
+                        arquivos_encontrados.append(arquivo)
+                        resultados.append(f'"{palavra}" encontrado em {arquivo}')
+
+    with open('resultados.txt', 'w') as arquivo_txt:
+        arquivo_txt.write('\n'.join(resultados))
+
+    print(f'A palavra "{palavra}" foi encontrada nos seguintes arquivos:')
+    for arquivo in arquivos_encontrados:
+        print(arquivo)
+
+# Exemplo de uso
+palavra_procurada = input('Digite a palavra que deseja procurar: ')
+pasta_procurada = input('Digite o caminho da pasta onde deseja procurar: ')
+
+procurar_palavra(palavra_procurada, pasta_procurada)

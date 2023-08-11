@@ -1,0 +1,47 @@
+"""Crie um programa em python que mostre o valor do bitcoin, etherium e matic em tempo real e os ultimos cinco valores.
+Só parar de mostrar se a tecla "e" for clicada. Organizar na interface PySimpleGUI"""
+```python
+import requests
+import PySimpleGUI as sg
+
+def obter_valores():
+    url = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,matic-network&vs_currencies=usd'
+    response = requests.get(url)
+    dados = response.json()
+    return dados
+
+def criar_layout(valores):
+    layout = [
+        [sg.Text('Bitcoin: $' + str(valores['bitcoin'])), sg.Text('Últimos 5 valores:')],
+        [sg.Multiline('', size=(40, 5), key='bitcoin_values')],
+        [sg.Text('Ethereum: $' + str(valores['ethereum'])), sg.Text('Últimos 5 valores:')],
+        [sg.Multiline('', size=(40, 5), key='ethereum_values')],
+        [sg.Text('Matic: $' + str(valores['matic-network'])), sg.Text('Últimos 5 valores:')],
+        [sg.Multiline('', size=(40, 5), key='matic_values')],
+        [sg.Button('Sair')]
+    ]
+    return layout
+
+def atualizar_valores(window, valores):
+    window['bitcoin_values'].print(valores['bitcoin'])
+    window['ethereum_values'].print(valores['ethereum'])
+    window['matic_values'].print(valores['matic-network'])
+
+def main():
+    sg.theme('DarkBlue3')
+
+    # Obtém os valores iniciais
+    valores = obter_valores()
+
+    # Cria a janela
+    window = sg.Window('Valores de Criptomoedas', criar_layout(valores))
+
+    # Loop principal
+    while True:
+        event, _ = window.read(timeout=1000)
+
+        if event == sg.WINDOW_CLOSED or event == 'Sair':
+            break
+
+        # Obtém os novos valores
+        novos_valores = obter_valores()

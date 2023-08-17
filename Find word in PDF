@@ -24,7 +24,7 @@ def procurar_palavra(palavra, pasta):
         arquivo_txt.write('\n'.join(resultados))
 
     print(f'A palavra "{palavra}" foi encontrada nos seguintes arquivos:')
-    for arquivo in arquivos_encontrados:
+    for arquivo in arquivos_encontrados:  #printa o mesmo arquivo varias vezes e não mostra nada qnd o arquivo n é encontrado
         print(arquivo)
 
 # Exemplo de uso
